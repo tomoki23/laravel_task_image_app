@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name,
+            'name' => $this->faker->randomElement(['仕事','プライベート','その他']),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
