@@ -14,12 +14,15 @@ class TaskController extends Controller
         $users = User::all();
         $categories = Category::all();
         $tasks = Task::with(['user', 'category'])->get();
-        $statusLabels = [
-            1 => '完了',
-            2 => '着手中',
-            3 => '未完了'
-        ];
 
-        return view('tasks.index', compact('users', 'categories', 'tasks', 'statusLabels'));
+        return view('tasks.index', compact('users', 'categories', 'tasks'));
+    }
+
+    public function create()
+    {
+        $users = User::all();
+        $categories = Category::all();
+
+        return view('tasks.create', compact('users', 'categories'));
     }
 }
