@@ -20,7 +20,7 @@
         </select>
         <select name="status" class="border border-gray-300 rounded px-8 py-1 ml-1 mr-1">
           <option value="">ステータス</option>
-          @foreach ($statusLabels as $statusValue => $status)
+          @foreach (config('status.statusLabels') as $statusValue => $status)
           <option value="{{ $statusValue }}">{{ $status }}</option>
           @endforeach
         </select>
