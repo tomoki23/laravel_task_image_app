@@ -20,10 +20,10 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
-
-        $statusNum = [1, 2, 3];
         $categoriesId = Category::pluck('id')->all();
         $usersId = User::pluck('id')->all();
+        $statusLabels = config('status.statusLabels');
+        $statusKeys = array_keys($statusLabels);
 
         return [
             'user_id' => $usersId[array_rand($usersId)],
@@ -31,7 +31,7 @@ class TaskFactory extends Factory
             'title' => $this->faker->realText(10),
             'image_path' => UploadedFile::fake()->image('photo.jpg'),
             'body' => $this->faker->realText(20),
-            'status' => $statusNum[array_rand($statusNum)],
+            'status' =>  $this->faker->randomElement($statusKeys),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
