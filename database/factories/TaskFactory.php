@@ -27,6 +27,7 @@ class TaskFactory extends Factory
 
         return [
             'user_id' => $usersId[array_rand($usersId)],
+            'assigned_user_id' => $usersId[array_rand($usersId)],
             'category_id' => $categoriesId[array_rand($categoriesId)],
             'title' => $this->faker->realText(10),
             'image_path' => UploadedFile::fake()->image('photo.jpg'),
