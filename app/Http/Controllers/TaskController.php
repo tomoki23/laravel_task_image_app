@@ -52,9 +52,8 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $task = Task::find($id);
-        $statusLabels = config('status.statusLabels');
-        $status = $statusLabels[$task->status];
+        $task = Task::with(['user', 'category'])->findOrFail($id);
+        $status = $task->status;
 
         return view('tasks.show', compact('task', 'status'));
     }
