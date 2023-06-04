@@ -39,7 +39,7 @@
           <tbody>
             @foreach ($tasks as $task)
             <tr>
-              <td class="border-t px-4 py-2"><a href="#">{{ $task->title }}</a></td>
+              <td class="border-t px-4 py-2"><a href="{{ route('tasks.show',['id' => $task->id]) }}">{{ $task->title }}</a></td>
               <td class="border-t px-4 py-2">{{ $task->body }}</td>
               <td class="border-t px-4 py-2">{{ $task->category->name }}</td>
               <td class="border-t px-4 py-2">{{ $task->user->name }}</td>
