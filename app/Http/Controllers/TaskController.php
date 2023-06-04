@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -33,7 +32,7 @@ class TaskController extends Controller
         $categoryId = $request->input('category_id');
         $title = $request->input('title');
         $body = $request->input('body');
-        $imagePath = '';
+        $imagePath = null;
         if ($request->file('image')) {
             $imagePath = $request->file('image')->store('image', 'public');
         }
@@ -43,11 +42,9 @@ class TaskController extends Controller
             'user_id' => $userId,
             'category_id' => $categoryId,
             'title' => $title,
-            'image_path' => $imagePath ? $imagePath : '',
+            'image_path' => $imagePath,
             'body' => $body,
             'status' => $firstStatusCode,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
         ]);
 
         return to_route('tasks.index');
