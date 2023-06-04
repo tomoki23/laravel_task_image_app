@@ -49,4 +49,13 @@ class TaskController extends Controller
 
         return to_route('tasks.index');
     }
+
+    public function show($id)
+    {
+        $task = Task::find($id);
+        $statusLabels = config('status.statusLabels');
+        $status = $statusLabels[$task->status];
+
+        return view('tasks.show', compact('task', 'status'));
+    }
 }
