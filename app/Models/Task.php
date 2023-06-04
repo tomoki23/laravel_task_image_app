@@ -9,6 +9,15 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'title',
+        'image_path',
+        'body',
+        'status'
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
