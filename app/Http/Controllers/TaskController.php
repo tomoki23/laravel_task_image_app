@@ -58,4 +58,13 @@ class TaskController extends Controller
 
         return view('tasks.show', compact('task'));
     }
+
+    public function edit($id)
+    {
+        $task = Task::with(['user', 'assignedUser', 'category'])->find($id);
+        $users = User::all();
+        $categories = Category::all();
+
+        return view('tasks.edit', compact('task', 'users', 'categories'));
+    }
 }
