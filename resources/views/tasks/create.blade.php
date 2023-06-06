@@ -20,8 +20,8 @@
           </select>
         </div>
         <div class="mb-4">
-          <label class="mb-2">ユーザー</label>
-          <select name="user_id" class="border border-gray-300 rounded px-2 py-1 w-full">
+          <label class="mb-2">担当ユーザー</label>
+          <select name="assigned_user_id" class="border border-gray-300 rounded px-2 py-1 w-full">
             <option value="">ユーザー選択</option>
             @foreach ($users as $user)
             <option value="{{ $user->id }}">{{ $user->name }}</option>
