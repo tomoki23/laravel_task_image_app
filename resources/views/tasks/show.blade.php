@@ -24,14 +24,14 @@
             </div>
             @if (auth()->id() === $task->assignedUser->id)
             <div class="flex justify-end">
-              <x-primary-button class="mr-4">更新</x-primary-button>
+              <x-primary-button class="mr-4"><a href="{{ route('tasks.edit',['id' => $task->id]) }}">更新</a></x-primary-button>
               <x-danger-button>削除</x-danger-button>
             </div>
             @endif
           </div>
           @if ($task->image_path)
           <div class="w-1/2 pl-4">
-            <div class="w-96 mx-auto mb-4">
+            <div class="w-96 mx-auto mb-4 pr-4">
               <img src="{{ Storage::url($task->image_path) }}" alt="タスクの関連画像" class="max-w-full max-h-full rounded-md">
             </div>
           </div>
