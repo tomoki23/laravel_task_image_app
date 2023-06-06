@@ -10,6 +10,8 @@
             <div class="mb-4">
               <h2 class="text-2xl font-bold mb-2 text-gray-800">{{ $task->title }}</h2>
               <hr class="my-2 border-gray-300">
+              <p class="text-lg mb-2 text-gray-600">担当者: {{ $task->assignedUser->name }}</p>
+              <hr class="my-2 border-gray-300">
               <p class="text-lg mb-2 text-gray-600">カテゴリー: {{ $task->category->name }}</p>
               <hr class="my-2 border-gray-300">
               <p class="text-lg mb-2 text-gray-600">ステータス: {{ $status }}</p>
@@ -20,7 +22,7 @@
                 <p class="text-lg text-gray-700 font-semibold">{{ $task->body }}</p>
               </div>
             </div>
-            @if (auth()->id() === $task->user->id)
+            @if (auth()->id() === $task->assignedUser->id)
             <div class="flex justify-end">
               <x-primary-button class="mr-4">更新</x-primary-button>
               <x-danger-button>削除</x-danger-button>
