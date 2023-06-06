@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [TaskController::class, 'create'])->name('create');
         Route::post('/', [TaskController::class, 'store'])->name('store');
         Route::get('/{id}', [TaskController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [TaskController::class, 'edit'])->name('edit');
     });
 });
 
