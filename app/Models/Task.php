@@ -13,6 +13,7 @@ class Task extends Model
 
     protected $fillable = [
         'user_id',
+        'assigned_user_id',
         'category_id',
         'title',
         'image_path',
@@ -26,6 +27,11 @@ class Task extends Model
     }
 
     public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function assignedUser()
     {
         return $this->belongsTo(User::class);
     }
