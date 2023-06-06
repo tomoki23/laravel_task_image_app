@@ -28,7 +28,8 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        $userId = $request->input('user_id');
+        $userId = $request->user()->id;
+        $assignedUserId = $request->input('assigned_user_id');
         $categoryId = $request->input('category_id');
         $title = $request->input('title');
         $body = $request->input('body');
@@ -40,6 +41,7 @@ class TaskController extends Controller
 
         Task::create([
             'user_id' => $userId,
+            'assigned_user_id' => $assignedUserId,
             'category_id' => $categoryId,
             'title' => $title,
             'image_path' => $imagePath,
@@ -52,7 +54,7 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $task = Task::with(['user', 'category'])->findOrFail($id);
+        $task = Task::with(['user', 'assignedUser', 'category'])->findOrFail($id);
         $status = $task->status;
 
         return view('tasks.show', compact('task', 'status'));
