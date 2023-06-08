@@ -4,8 +4,9 @@
       <h1 class="text-4xl font-bold text-center mb-4"
         style="font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
         TODO更新</h1>
-      <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('tasks.update', ['id' => $task->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="mb-4">
           <label id="title" class="mb-2">タイトル</label>
           <input type="text" name="title" id="title" class="border border-gray-300 rounded px-2 py-1 w-full" value="{{ $task->title }}">
