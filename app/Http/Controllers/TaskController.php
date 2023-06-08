@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -88,5 +89,16 @@ class TaskController extends Controller
         $task->save();
 
         return to_route('tasks.show', ['id' => $id]);
+    }
+
+    public function delete($id)
+    {
+        $imagePath = Task::find($id)->image_path;
+        if($imagePath){
+            Storage::disk('public')->delete($imagePath);
+        }
+        Task::destroy($id);
+
+        return to_route('tasks.index');
     }
 }
