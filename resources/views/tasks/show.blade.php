@@ -24,8 +24,12 @@
             </div>
             @if (auth()->id() === $task->assignedUser->id)
             <div class="flex justify-end">
-              <x-primary-button class="mr-4"><a href="{{ route('tasks.edit',['id' => $task->id]) }}">更新</a></x-primary-button>
-              <x-danger-button>削除</x-danger-button>
+              <x-primary-button class="mr-4"><a href="{{ route('tasks.edit',['id' => $task->id]) }}" >更新</a></x-primary-button>
+              <form action="{{ route('tasks.destroy', ['id' => $task->id]) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <x-danger-button>削除</x-danger-button>
+              </form>
             </div>
             @endif
           </div>
