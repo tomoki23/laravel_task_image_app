@@ -37,7 +37,6 @@ class TaskController extends Controller
         if ($request->file('image')) {
             $imagePath = $request->file('image')->store('image', 'public');
         }
-        $firstStatusCode = 3;
 
         Task::create([
             'user_id' => $userId,
@@ -46,7 +45,7 @@ class TaskController extends Controller
             'title' => $title,
             'image_path' => $imagePath,
             'body' => $body,
-            'status' => $firstStatusCode,
+            'status' => '',
         ]);
 
         return to_route('tasks.index');
