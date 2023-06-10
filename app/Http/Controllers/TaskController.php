@@ -55,8 +55,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::with(['user', 'assignedUser', 'category'])->findOrFail($id);
-        $status = $task->status;
 
-        return view('tasks.show', compact('task', 'status'));
+        return view('tasks.show', compact('task'));
     }
 }
