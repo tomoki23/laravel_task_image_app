@@ -14,7 +14,7 @@
               <hr class="my-2 border-gray-300">
               <p class="text-lg mb-2 text-gray-600">カテゴリー: {{ $task->category->name }}</p>
               <hr class="my-2 border-gray-300">
-              <p class="text-lg mb-2 text-gray-600">ステータス: {{ $status }}</p>
+              <p class="text-lg mb-2 text-gray-600">ステータス: {{ $task->status }}</p>
             </div>
             <div class="mb-4">
               <h3 class="text-xl font-bold mb-2 text-gray-800">タスク内容</h3>
