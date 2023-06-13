@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}', [TaskController::class, 'show'])->name('show');
         Route::get('/{id}/edit', [TaskController::class, 'edit'])->name('edit');
         Route::put('/{id}', [TaskController::class, 'update'])->name('update');
-        Route::delete('/{id}', [TaskController::class, 'delete'])->name('destroy');
+        Route::delete('/{id}', [TaskController::class, 'destroy'])->name('destroy');
     });
 });
 

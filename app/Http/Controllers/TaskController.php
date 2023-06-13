@@ -94,7 +94,7 @@ class TaskController extends Controller
         return to_route('tasks.show', ['id' => $id]);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $task = Task::find($id);
         DB::transaction(function () use ($task) {
