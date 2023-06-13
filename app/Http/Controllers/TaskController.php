@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -94,11 +96,19 @@ class TaskController extends Controller
 
     public function delete($id)
     {
-        $imagePath = Task::find($id)->image_path;
-        if($imagePath){
-            Storage::disk('public')->delete($imagePath);
-        }
-        Task::destroy($id);
+        $task = Task::find($id);
+        DB::transaction(function () use ($task) {
+            try {
+                $task->delete();
+                $imagePath = $task->image_path;
+                if ($imagePath) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+            } catch (Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        });
 
         return to_route('tasks.index');
     }
