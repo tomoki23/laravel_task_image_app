@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -70,22 +73,35 @@ class TaskController extends Controller
 
     public function update(Request $request, $id)
     {
-        $task = Task::find($id);
-        $task->fill(
-            $request->only([
-                'assigned_user_id',
-                'category_id',
-                'title',
-                'body',
-                'status'
-            ])
-        );
+        DB::transaction(function () use ($request, $id) {
+            try {
+                $task = Task::find($id);
+                $task->fill(
+                    $request->only([
+                        'assigned_user_id',
+                        'category_id',
+                        'title',
+                        'body',
+                        'status'
+                    ])
+                );
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('image', 'public');
-            $task->image_path = $imagePath;
-        }
-        $task->save();
+                $originalImagePath = $task->getOriginal('image_path');
+                if ($request->hasFile('image')) {
+                    $newImagePath = $request->file('image')->store('image', 'public');
+                    $task->image_path = $newImagePath;
+                }
+                $task->save();
+                Storage::disk('public')->delete($originalImagePath);
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollBack();
+                if ($newImagePath) {
+                    Storage::disk('public')->delete($newImagePath);
+                }
+                throw $e;
+            }
+        });
 
         return to_route('tasks.show', ['id' => $id]);
     }
