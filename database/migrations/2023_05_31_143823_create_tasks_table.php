@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('assigned_user_id')->references('id')->on('users');
             $table->foreignId('category_id')->references('id')->on('categories');
             $table->string('title', 20);
             $table->text('image_path');

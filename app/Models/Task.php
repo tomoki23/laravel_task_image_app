@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 
 class Task extends Model
 {
@@ -11,6 +13,7 @@ class Task extends Model
 
     protected $fillable = [
         'user_id',
+        'assigned_user_id',
         'category_id',
         'title',
         'image_path',
@@ -26,5 +29,18 @@ class Task extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function assignedUser()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    protected function status(): Attribute
+    {
+        $statusLabels = config('status.statusLabels');
+        return Attribute::make(
+            get: fn (string $status) => $statusLabels[$status]
+        );
     }
 }
