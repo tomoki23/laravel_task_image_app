@@ -96,10 +96,10 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $task = Task::find($id);
-        DB::transaction(function () use ($task) {
+        $imagePath = $task->image_path;
+        DB::transaction(function () use ($task, $imagePath) {
             try {
                 $task->delete();
-                $imagePath = $task->image_path;
                 if ($imagePath) {
                     Storage::disk('public')->delete($imagePath);
                 }
