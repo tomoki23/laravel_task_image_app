@@ -41,7 +41,7 @@ class Task extends Model
         $statusLabels = config('status.statusLabels');
         return Attribute::make(
             get: fn (string $status) => $statusLabels[$status],
-            set: fn () => strval(array_keys($statusLabels)[2])
+            set: fn (string $status) => $status === '' ? strval(array_keys($statusLabels)[2]) : $status
         );
     }
 }
