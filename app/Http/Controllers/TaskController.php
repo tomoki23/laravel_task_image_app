@@ -111,4 +111,54 @@ class TaskController extends Controller
 
         return to_route('tasks.index');
     }
+
+    public function edit($id)
+    {
+        $task = Task::with(['user', 'assignedUser', 'category'])->find($id);
+        $users = User::all();
+        $categories = Category::all();
+
+        return view('tasks.edit', compact('task', 'users', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $task = Task::find($id);
+        $task->fill(
+            $request->only([
+                'assigned_user_id',
+                'category_id',
+                'title',
+                'body',
+                'status'
+            ])
+        );
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('image', 'public');
+            $task->image_path = $imagePath;
+        }
+        $task->save();
+
+        return to_route('tasks.show', ['id' => $id]);
+    }
+
+    public function destroy($id)
+    {
+        $task = Task::find($id);
+        DB::transaction(function () use ($task) {
+            try {
+                $task->delete();
+                $imagePath = $task->image_path;
+                if ($imagePath) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+            } catch (Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        });
+
+        return to_route('tasks.index');
+    }
 }
