@@ -104,4 +104,23 @@ class TaskController extends Controller
 
         return to_route('tasks.show', ['id' => $id]);
     }
+
+    public function destroy($id)
+    {
+        $task = Task::find($id);
+        $imagePath = $task->image_path;
+        DB::transaction(function () use ($task, $imagePath) {
+            try {
+                $task->delete();
+                if ($imagePath) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+            } catch (Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        });
+
+        return to_route('tasks.index');
+    }
 }
