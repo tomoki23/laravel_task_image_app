@@ -45,6 +45,36 @@
           </div>
           @endif
         </div>
+        <div class="w-4/5 mx-auto mt-4">
+          <div class="mb-4">
+            <form action="#" class="w-full">
+              <input type="text" name="comment" placeholder="コメントを入力してください"
+                class="w-full border border-gray-300 rounded py-2 px-4 mb-2">
+            </form>
+            <div class="flex justify-end">
+              <x-primary-button>投稿</x-primary-button>
+            </div>
+          </div>
+          @foreach ($comments as $comment)
+            @if ($task->id === $comment->task->id)
+              <div class="mb-4 mt-4">
+                <div class="border border-gray-300 rounded py-2 px-4 relative">
+                  <div class="flex justify-between mb-2">
+                    <p class="font-semibold">{{ $comment->user->name }}</p>
+                    <p class="text-gray-500">{{ $comment->created_at }}</p>
+                  </div>
+                  <hr>
+                  <p class="text-gray-700 mt-4">{{ $comment->body }}</p>
+                  @if ($comment->user_id === auth()->id())
+                  <div class="flex justify-end mt-2">
+                    <x-danger-button>削除</x-danger-button>
+                  </div>
+                  @endif
+                </div>
+              </div>
+            @endif
+          @endforeach
+        </div>
       </div>
     </div>
 </x-app-layout>
