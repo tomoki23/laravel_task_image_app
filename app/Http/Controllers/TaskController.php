@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
+use App\Models\Comment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -62,8 +63,9 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::with(['user', 'assignedUser', 'category'])->findOrFail($id);
+        $comments = Comment::with(['user', 'task'])->get();
 
-        return view('tasks.show', compact('task'));
+        return view('tasks.show', compact('task', 'comments'));
     }
 
     public function edit($id)
