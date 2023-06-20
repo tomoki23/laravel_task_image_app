@@ -6,7 +6,8 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class Task extends Model
 {
@@ -46,18 +47,18 @@ class Task extends Model
         );
     }
 
-    public static function searchTask($keyword, $categoryId, $userId, $status)
+    public static function searchTask(Request $request): Collection
     {
-        $tasks = Task::when($keyword, function (Builder $query, $keyword) {
+        $tasks = Task::when($request->keyword, function (Builder $query, $keyword) {
             $query->where(function (Builder $query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%')
                     ->orWhere('body', 'like', '%' . $keyword . '%');
             });
-        })->when($userId, function (Builder $query, $userId) {
+        })->when($request->user_id, function (Builder $query, $userId) {
             $query->where('user_id', '=', $userId);
-        })->when($categoryId, function (Builder $query, $categoryId) {
+        })->when($request->category_id, function (Builder $query, $categoryId) {
             $query->where('category_id', '=', $categoryId);
-        })->when($status, function (Builder $query, $status) {
+        })->when($request->status, function (Builder $query, $status) {
             $query->where('status', '=', $status);
         })->with('user', 'category')->get();
 
