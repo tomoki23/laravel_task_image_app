@@ -22,8 +22,7 @@ class TaskController extends Controller
         $users = User::all();
         $categories = Category::all();
 
-        $keyword = $request->input('keyword');
-        $tasks = $this->task->searchTask($keyword, $request);
+        $tasks = $this->task->searchTask((string) $request->input('keyword'), (int) $request->input('user_id'), (int) $request->input('category_id'), (int) $request->input('status'));
 
         return view('tasks.index', compact('users', 'categories', 'tasks'));
     }
