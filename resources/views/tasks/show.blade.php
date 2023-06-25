@@ -47,13 +47,14 @@
         </div>
         <div class="w-4/5 mx-auto mt-4">
                   <div class="mb-4">
-                    <form action="#" class="w-full">
+                    <form action="{{ route('tasks.comments.store', ['id' => $task->id]) }}" class="w-full" method="POST">
+                      @csrf
                       <input type="text" name="comment" placeholder="コメントを入力してください"
                         class="w-full border border-gray-300 rounded py-2 px-4 mb-2">
+                      <div class="flex justify-end">
+                        <x-primary-button>投稿</x-primary-button>
+                      </div>
                     </form>
-                    <div class="flex justify-end">
-                      <x-primary-button>投稿</x-primary-button>
-                    </div>
                   </div>
                   @foreach ($task->comments as $comment)
                   <div class="mb-4 mt-4">
