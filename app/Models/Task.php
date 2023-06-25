@@ -47,18 +47,18 @@ class Task extends Model
         );
     }
 
-    public function searchTask(String $keyword = null, Request $request): Collection
+    public function searchTask(?string $keyword, ?int $userId, ?int $categoryId, ?int $status): Collection
     {
         $tasks = Task::when($keyword, function (Builder $query, $keyword) {
             $query->where(function (Builder $query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%')
                     ->orWhere('body', 'like', '%' . $keyword . '%');
             });
-        })->when($request->user_id, function (Builder $query, $userId) {
+        })->when($userId, function (Builder $query, $userId) {
             $query->where('user_id', '=', $userId);
-        })->when($request->category_id, function (Builder $query, $categoryId) {
+        })->when($categoryId, function (Builder $query, $categoryId) {
             $query->where('category_id', '=', $categoryId);
-        })->when($request->status, function (Builder $query, $status) {
+        })->when($status, function (Builder $query, $status) {
             $query->where('status', '=', $status);
         })->with('user', 'category')->get();
 
