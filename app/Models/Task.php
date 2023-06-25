@@ -47,9 +47,9 @@ class Task extends Model
         );
     }
 
-    public static function searchTask(Request $request): Collection
+    public function searchTask(String $keyword = null, Request $request): Collection
     {
-        $tasks = Task::when($request->keyword, function (Builder $query, $keyword) {
+        $tasks = Task::when($keyword, function (Builder $query, $keyword) {
             $query->where(function (Builder $query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%')
                     ->orWhere('body', 'like', '%' . $keyword . '%');
