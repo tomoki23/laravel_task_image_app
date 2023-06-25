@@ -55,7 +55,6 @@
                       <x-primary-button>投稿</x-primary-button>
                     </div>
                   </div>
-                  @if ($task->comments)
                   @foreach ($task->comments as $comment)
                   <div class="mb-4 mt-4">
                     <div class="border border-gray-300 rounded py-2 px-4 relative">
@@ -73,7 +72,6 @@
                     </div>
                   </div>
                   @endforeach
-                  @endif
                 </div>
       </div>
     </div>
