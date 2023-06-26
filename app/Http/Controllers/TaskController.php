@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function __construct(Task $task)
+    {
+        $this->task = $task;
+    }
+
+    public function index(Request $request)
     {
         $users = User::all();
         $categories = Category::all();
-        $tasks = Task::with(['user', 'category'])->get();
+
+        $tasks = $this->task->searchTask((string) $request->input('keyword'), (int) $request->input('user_id'), (int) $request->input('category_id'), (int) $request->input('status'));
 
         return view('tasks.index', compact('users', 'categories', 'tasks'));
     }

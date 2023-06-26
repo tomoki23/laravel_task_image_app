@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class Task extends Model
 {
@@ -43,5 +45,23 @@ class Task extends Model
             get: fn (string $status) => $statusLabels[$status],
             set: fn (string $status) => $status === '' ? strval(array_keys($statusLabels)[2]) : $status
         );
+    }
+
+    public function searchTask(?string $keyword, ?int $userId, ?int $categoryId, ?int $status): Collection
+    {
+        $tasks = Task::when($keyword, function (Builder $query, $keyword) {
+            $query->where(function (Builder $query) use ($keyword) {
+                $query->where('title', 'like', '%' . $keyword . '%')
+                    ->orWhere('body', 'like', '%' . $keyword . '%');
+            });
+        })->when($userId, function (Builder $query, $userId) {
+            $query->where('user_id', '=', $userId);
+        })->when($categoryId, function (Builder $query, $categoryId) {
+            $query->where('category_id', '=', $categoryId);
+        })->when($status, function (Builder $query, $status) {
+            $query->where('status', '=', $status);
+        })->with('user', 'category')->get();
+
+        return $tasks;
     }
 }

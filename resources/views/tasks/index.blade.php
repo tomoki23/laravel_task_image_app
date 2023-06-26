@@ -4,15 +4,15 @@
       <h1 class="text-4xl font-bold text-center mb-4" style="font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
         TODO一覧画面</h1>
       <form action="#" method="#" class="flex flex-wrap gap-2 mb-4">
-        <label for="title" class="flex flex-col items-center justify-center">タイトル：</label>
-        <input type="text" name="title" id="title" class="border border-gray-300 rounded px-2 py-1 w-40">
-        <select name="category" class="border border-gray-300 rounded px-8 py-1 ml-1">
+        <label for="keyword" class="flex flex-col items-center justify-center">タイトル：</label>
+        <input type="text" name="keyword" id="keyword" class="border border-gray-300 rounded px-2 py-1 w-40">
+        <select name="category_id" class="border border-gray-300 rounded px-8 py-1 ml-1">
           <option value="">カテゴリー</option>
           @foreach ($categories as $category)
           <option value="{{ $category->id }}">{{ $category->name }}</option>
           @endforeach
         </select>
-        <select name="user" class="border border-gray-300 rounded px-8 py-1 ml-1">
+        <select name="user_id" class="border border-gray-300 rounded px-8 py-1 ml-1">
           <option value="">ユーザー</option>
           @foreach ($users as $user)
           <option value="{{ $user->id }}">{{ $user->name }}</option>
