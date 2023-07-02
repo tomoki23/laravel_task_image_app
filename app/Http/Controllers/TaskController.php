@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
@@ -76,7 +77,7 @@ class TaskController extends Controller
         return view('tasks.edit', compact('task', 'users', 'categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateTaskRequest $request, $id)
     {
         DB::transaction(function () use ($request, $id) {
             try {
