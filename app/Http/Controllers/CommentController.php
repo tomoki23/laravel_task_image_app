@@ -9,7 +9,6 @@ class CommentController extends Controller
 {
     public function store(CreateCommentRequest $request)
     {
-        dd($request);
         Comment::create([
             'user_id' => $request->user()->id,
             'task_id' => $request->id,
