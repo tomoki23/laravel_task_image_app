@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateTaskRequest;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
-use App\Models\Comment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -35,7 +35,7 @@ class TaskController extends Controller
         return view('tasks.create', compact('users', 'categories'));
     }
 
-    public function store(Request $request)
+    public function store(CreateTaskRequest $request)
     {
         $userId = $request->user()->id;
         $assignedUserId = $request->input('assigned_user_id');
