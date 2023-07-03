@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
+use App\Http\Requests\SearchTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    public function index(Request $request)
+    public function index(SearchTaskRequest $request)
     {
         $users = User::all();
         $categories = Category::all();
