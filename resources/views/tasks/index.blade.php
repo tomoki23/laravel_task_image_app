@@ -3,8 +3,7 @@
     <div class="w-2/3 bg-white shadow-md rounded-md p-6">
       <h1 class="text-4xl font-bold text-center mb-4" style="font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
         TODO一覧画面</h1>
-      <form action="#" method="#" class="flex flex-wrap gap-2 mb-4">
-        <label for="keyword" class="flex flex-col items-center justify-center">タイトル：</label>
+      <form action="{{ route('tasks.index') }}" method="GET" class="flex flex-wrap gap-2 mb-4">
         <input type="text" name="keyword" id="keyword" class="border border-gray-300 rounded px-2 py-1 w-40">
         <select name="category_id" class="border border-gray-300 rounded px-8 py-1 ml-1">
           <option value="">カテゴリー</option>
