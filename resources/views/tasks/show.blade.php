@@ -70,7 +70,12 @@
                       <p class="text-gray-700 mt-4">{{ $comment->body }}</p>
                       @if ($comment->user_id === auth()->id())
                       <div class="flex justify-end mt-2">
+                        <form action="{{ route('tasks.comments.destroy', ['id' => $comment->id]) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <input type="hidden" name="task_id" value="{{ $task->id }}">
                         <x-danger-button>削除</x-danger-button>
+                        </form>
                       </div>
                       @endif
                     </div>
