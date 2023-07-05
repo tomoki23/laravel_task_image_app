@@ -35,7 +35,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [TaskController::class, 'create'])->name('create');
         Route::post('/', [TaskController::class, 'store'])->name('store');
         Route::get('/{id}', [TaskController::class, 'show'])->name('show');
-        Route::post('/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
+        Route::prefix('comments')->name('comments.')->group(function () {
+            Route::post('/{id}/', [CommentController::class, 'store'])->name('store');
+            Route::delete('/{id}/', [CommentController::class, 'destroy'])->name('destroy');
+        });
         Route::get('/{id}/edit', [TaskController::class, 'edit'])->name('edit');
         Route::put('/{id}', [TaskController::class, 'update'])->name('update');
         Route::delete('/{id}', [TaskController::class, 'destroy'])->name('destroy');
