@@ -63,9 +63,10 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $task = Task::with(['user', 'assignedUser', 'category', 'comments.user'])->findOrFail($id);
+        $task = Task::with(['user', 'assignedUser', 'category', 'comments'])->findOrFail($id);
+        $comments = $task->comments()->with('user')->orderBy('created_at', 'DESC')->paginate(10);
 
-        return view('tasks.show', compact('task'));
+        return view('tasks.show', compact('task', 'comments'));
     }
 
     public function edit($id)
