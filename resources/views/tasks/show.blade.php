@@ -59,7 +59,7 @@
                       </div>
                     </form>
                   </div>
-                  @foreach ($task->comments as $comment)
+                  @foreach ($comments as $comment)
                   <div class="mb-4 mt-4">
                     <div class="border border-gray-300 rounded py-2 px-4 relative">
                       <div class="flex justify-between mb-2">
@@ -81,6 +81,7 @@
                     </div>
                   </div>
                   @endforeach
+                  {{ $comments->links() }}
                 </div>
       </div>
     </div>
