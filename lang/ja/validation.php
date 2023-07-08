@@ -248,6 +248,7 @@ return [
         'year' => '年',
         'category_id' => 'カテゴリー',
         'assigned_user_id' => '担当ユーザー',
+        'comment' => 'コメント'
     ],
 
 ];

@@ -51,6 +51,9 @@
                       @csrf
                       <input type="text" name="comment" placeholder="コメントを入力してください"
                         class="w-full border border-gray-300 rounded py-2 px-4 mb-2">
+                        @error('comment')
+                        <div class="text-red-500 bg-red-100">{{ $message }}</div>
+                        @enderror
                       <div class="flex justify-end">
                         <x-primary-button>投稿</x-primary-button>
                       </div>

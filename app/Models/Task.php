@@ -6,7 +6,8 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class Task extends Model
 {
@@ -51,7 +52,7 @@ class Task extends Model
         );
     }
 
-    public static function searchTask($keyword, $categoryId, $userId, $status)
+    public function searchTask(?string $keyword, ?int $userId, ?int $categoryId, ?int $status): Collection
     {
         $tasks = Task::when($keyword, function (Builder $query, $keyword) {
             $query->where(function (Builder $query) use ($keyword) {
