@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class UpdateTaskRequest extends FormRequest
 {
@@ -25,9 +27,9 @@ class UpdateTaskRequest extends FormRequest
             'assigned_user_id' => 'required|integer|numeric|exists:users,id',
             'category_id' => 'required|integer|numeric|exists:categories,id',
             'title' => 'required|min:1|max:10|string',
-            'image_path' => 'image|mimes:png,jpg',
+            'image' => File::image()->max(2048),
             'body' => 'required|min:1|max:50|string',
-            'status' => 'required|integer|numeric',
+            'status' => 'required|integer|numeric', Rule::in(config('status.statusLabels')),
         ];
     }
 }
