@@ -9,6 +9,9 @@
         <div class="mb-4">
           <label id="title" class="mb-2">タイトル</label>
           <input type="text" name="title" id="title" class="border border-gray-300 rounded px-2 py-1 w-full">
+          @error('title')
+            <div class="text-red-500 bg-red-100">{{ $message }}</div>
+          @enderror
         </div>
         <div class="mb-4">
           <label class="mb-2">カテゴリー</label>
@@ -18,6 +21,9 @@
             <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
           </select>
+          @error('category_id')
+          <div class="text-red-500 bg-red-100">{{ $message }}</div>
+          @enderror
         </div>
         <div class="mb-4">
           <label class="mb-2">担当ユーザー</label>
@@ -27,15 +33,24 @@
             <option value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
           </select>
+          @error('assigned_user_id')
+          <div class="text-red-500 bg-red-100">{{ $message }}</div>
+          @enderror
         </div>
         <div class="mb-4">
           <label class="mb-2">画像</label>
           <input type="file" name="image">
+          @error('image')
+          <div class="text-red-500 bg-red-100">{{ $message }}</div>
+          @enderror
         </div>
         <div class="mb-4">
           <label id="body" class="mb-2">本文</label>
           <textarea name="body" id="body" cols="30" rows="4" class="border border-gray-300 rounded px-2 py-1 w-full"
             placeholder="TODOを入力してください。"></textarea>
+            @error('body')
+            <div class="text-red-500 bg-red-100">{{ $message }}</div>
+            @enderror
         </div>
         <div class="flex justify-end">
           <x-primary-button>登録</x-primary-button>
