@@ -65,7 +65,9 @@ class Task extends Model
             $query->where('category_id', '=', $categoryId);
         })->when($status, function (Builder $query, $status) {
             $query->where('status', '=', $status);
-        })->with('user', 'category')->orderBy('created_at', 'DESC')->paginate(10);
+        })->with('user', 'category')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
 
         return $tasks;
     }
