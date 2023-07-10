@@ -14,7 +14,7 @@ class DeleteCommentRequest extends FormRequest
     {
         $authUserId = auth()->user()->id;
         $comment = Comment::findOrFail($this->route('id'));
-        return $comment && $authUserId === $comment->user_id;
+        return $authUserId === $comment->user_id;
     }
 
     /**
