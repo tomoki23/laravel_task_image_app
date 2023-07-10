@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCommentRequest;
+use App\Http\Requests\DeleteCommentRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -19,10 +20,10 @@ class CommentController extends Controller
         return to_route('tasks.show', ['id' => $request->id]);
     }
 
-    public function destroy($id, Request $request)
+    public function destroy($commentId, DeleteCommentRequest $request)
     {
         $taskId = $request->input('task_id');
-        Comment::destroy($id);
+        Comment::destroy($commentId);
 
         return to_route('tasks.show', ['id' => $taskId]);
     }
