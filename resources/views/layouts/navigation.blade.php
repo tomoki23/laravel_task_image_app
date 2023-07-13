@@ -86,7 +86,7 @@
                 登録画面
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tasks.mytasks')" :active="request()->routeIs('tasks.mytasks')">
-                登録画面
+                マイタスク
             </x-responsive-nav-link>
         </div>
 
