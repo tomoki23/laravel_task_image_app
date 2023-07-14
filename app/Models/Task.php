@@ -6,8 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Task extends Model
 {
@@ -52,7 +51,7 @@ class Task extends Model
         );
     }
 
-    public function searchTask(?string $keyword, ?int $userId, ?int $categoryId, ?int $status): Collection
+    public function searchTask(?string $keyword, ?int $userId, ?int $categoryId, ?int $status): LengthAwarePaginator
     {
         $tasks = Task::when($keyword, function (Builder $query, $keyword) {
             $query->where(function (Builder $query) use ($keyword) {

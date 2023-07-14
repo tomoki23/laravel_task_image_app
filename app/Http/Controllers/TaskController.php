@@ -135,4 +135,15 @@ class TaskController extends Controller
 
         return to_route('tasks.index');
     }
+
+    public function myTask()
+    {
+        $user = auth()->user();
+        $tasks = $user->tasks()
+            ->with(['category'])
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+
+        return view('tasks.my_task', compact('user', 'tasks'));
+    }
 }

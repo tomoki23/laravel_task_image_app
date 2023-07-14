@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('tasks.create')" :active="request()->routeIs('tasks.create')">
                         登録画面
                     </x-nav-link>
+                    <x-nav-link :href="route('tasks.mytasks')" :active="request()->routeIs('tasks.mytasks')">
+                        マイタスク
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -81,6 +84,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tasks.create')" :active="request()->routeIs('tasks.create')">
                 登録画面
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('tasks.mytasks')" :active="request()->routeIs('tasks.mytasks')">
+                マイタスク
             </x-responsive-nav-link>
         </div>
 
