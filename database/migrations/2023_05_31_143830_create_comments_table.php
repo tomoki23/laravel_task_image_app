@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('task_id')->references('id')->on('tasks');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('task_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $table->text('body');
             $table->timestamps();
         });
